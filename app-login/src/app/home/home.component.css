@@ -1,0 +1,11 @@
+h1, h2{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    
+}
+
+.boton-cnt {
+    display: flex;
+    justify-content: center;  
+}
