@@ -6,3 +6,6 @@ input{
     margin: auto;
     width: 30%;
 }
+button{
+    margin-bottom: 10px;
+}
