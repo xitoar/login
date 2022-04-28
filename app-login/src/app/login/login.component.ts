@@ -11,10 +11,14 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder){ 
   
-    this.form= this.formBuilder.group({
-      password:['',[Validators.required, Validators.minLength(4)]],
+    this.form= this.formBuilder.group({      
       nombre:['', [Validators.required]],
+      password:['',[Validators.required, Validators.minLength(4)]],
    })
+  }
+
+  logear(){
+    console.log(this.form.value);
   }
 
   ngOnInit(): void {
