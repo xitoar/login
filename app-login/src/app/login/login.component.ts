@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataServiceService } from '../data-service.service';
+import { HomeComponent } from '../home/home.component';
 import { ServiceService } from '../service.service';
+
 
 @Component({
   selector: 'app-login',
@@ -10,12 +13,12 @@ import { ServiceService } from '../service.service';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  loginOk: any;
+  loginOk: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private serviceService: ServiceService ){ 
+  constructor(private formBuilder: FormBuilder, private router: Router, private serviceService: ServiceService, private dataService: DataServiceService){ 
   
-    this.form= this.formBuilder.group({      
-      nombre:['', [Validators.required]],
+    this.form = this.formBuilder.group({      
+      usuario:['', [Validators.required]],
       password:['',[Validators.required, Validators.minLength(4)]],
    })
   }
@@ -24,8 +27,12 @@ export class LoginComponent implements OnInit {
     if (this.form.valid){      
       this.serviceService.login(this.form.value).subscribe(data => {
         this.loginOk = data;
-        this.router.navigate(['/home']);
-        console.log(this.loginOk);
+        if (data == true){
+        this.router.navigate(['/home']);        
+        this.dataService.mensaje = "LOGIN OK"
+        }else{
+          alert("Datos cargados erroneos")
+        }
       });
     }else{
       alert("Datos cargados incompletos")
